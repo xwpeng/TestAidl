@@ -38,7 +38,6 @@ public class MainActivity2 extends Activity implements View.OnClickListener {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             myBinder = service;
-//            myBinder = IPushAidl.Stub.asInterface(service);
         }
 
     };
@@ -66,15 +65,15 @@ public class MainActivity2 extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.start_service:
-                Intent startIntent = new Intent(this, PushService.class);
+                Intent startIntent = new Intent(this, PushService2.class);
                 startService(startIntent);
                 break;
             case R.id.stop_service:
-                Intent stopIntent = new Intent(this, PushService.class);
+                Intent stopIntent = new Intent(this, PushService2.class);
                 stopService(stopIntent);
                 break;
             case R.id.bind_service:
-                Intent bindIntent = new Intent(this, PushService.class);
+                Intent bindIntent = new Intent(this, PushService2.class);
                 bindService(bindIntent, connection, BIND_AUTO_CREATE);
                 break;
             case R.id.unbind_service:
@@ -106,6 +105,9 @@ public class MainActivity2 extends Activity implements View.OnClickListener {
             myBinder.transact(id, _data, _reply, 0);
         } catch (RemoteException e) {
             e.printStackTrace();
+        } finally {
+            _data.recycle();
+            _reply.recycle();
         }
     }
 }

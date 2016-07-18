@@ -81,14 +81,14 @@ public class PushService2 extends Service {
                     data.enforceInterface(DESCRIPTOR);
                     startNotification();
                     reply.writeNoException();
-                    break;
+                    return true;
                 case 2://stopNotify
                     data.enforceInterface(DESCRIPTOR);
                     stopNotification();
                     reply.writeNoException();
-                    break;
+                    return true;
             }
-            return true;
+            return super.onTransact(code, data, reply, flags);
         }
     }
 
